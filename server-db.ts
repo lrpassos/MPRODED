@@ -123,10 +123,51 @@ let supabase: any = null;
 const supabaseUrl = process.env.SUPABASE_URL;
 const supabaseKey = process.env.SUPABASE_KEY;
 
+function checkAndDisableSupabaseIfInvalid(error: any) {
+  if (error && supabase) {
+    const msg = error.message || '';
+    if (
+      msg.includes('Invalid API key') || 
+      msg.includes('JWT') || 
+      msg.includes('api_key') || 
+      msg.includes('API key') ||
+      msg.includes('unauthorized') || 
+      msg.includes('401') ||
+      msg.includes('Invalid key') ||
+      msg.includes('service_role')
+    ) {
+      console.warn(`⚙️ Supabase credentials check failed: "${msg}". Automatically disabling Supabase database integration to rely entirely on local storage fallback.`);
+      supabase = null;
+    }
+  }
+}
+
 if (supabaseUrl && supabaseKey && supabaseUrl !== 'https://your-project.supabase.co') {
   try {
-    supabase = createClient(supabaseUrl, supabaseKey);
-    console.log('🔌 Supabase initialized. Checking tables...');
+    // Attempt schema configuration to target "MProded" schema
+    supabase = createClient(supabaseUrl, supabaseKey, {
+      db: { schema: 'MProded' }
+    });
+    console.log('🔌 Supabase initialized with schema "MProded". Checking tables...');
+    
+    // Quick validation check on targets
+    supabase.from('devices').select('id').limit(1).then(({ error }: any) => {
+      if (error) {
+        // If schema MProded doesn't exist or is invalid, try public fallback
+        console.warn(`⚠️ Error querying "MProded" schema tables. Attempting default public schema fallback... Error info:`, error.message);
+        
+        supabase = createClient(supabaseUrl, supabaseKey);
+        supabase.from('devices').select('id').limit(1).then(({ error: pubError }: any) => {
+          if (pubError) {
+            checkAndDisableSupabaseIfInvalid(pubError);
+          } else {
+            console.log('✅ Supabase verified successfully on public schema fallback.');
+          }
+        });
+      } else {
+        console.log('✅ Supabase credentials verified successfully on "MProded" schema.');
+      }
+    });
   } catch (error) {
     console.error('⚠️ Supabase connection error:', error);
   }
@@ -204,7 +245,10 @@ export const dbService = {
         if (!error && data) {
           return data as Device[];
         }
-        console.warn('⚠️ Supabase getDevices error, using local fallback:', error?.message);
+        if (error) {
+          checkAndDisableSupabaseIfInvalid(error);
+          console.warn('⚠️ Supabase getDevices error, using local fallback:', error.message);
+        }
       } catch (err) {
         // silent fallback to local
       }
