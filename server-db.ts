@@ -120,8 +120,8 @@ interface LocalDB {
 }
 
 let supabase: any = null;
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_KEY;
 
 function checkAndDisableSupabaseIfInvalid(error: any) {
   if (error && supabase) {
