@@ -1,5 +1,5 @@
 {
-  "name": "MPRODED NetPulse",
+  "name": "MProded",
   "description": "A professional network monitoring dashboard for monitoring IPs, routers, MikroTik devices, and internet links with real-time ping simulation and metrics history.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]

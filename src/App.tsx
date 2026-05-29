@@ -219,7 +219,7 @@ export default function App() {
             <div>
               <div className="flex items-center gap-2">
                 <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">MPRODED</span>
-                <span className="text-[10px] font-extrabold tracking-widest uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1.5 py-0.5 rounded-md">NetPulse</span>
+                <span className="text-[10px] font-extrabold tracking-widest uppercase bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-1.5 py-0.5 rounded-md">MProded</span>
               </div>
               <p className="text-[10px] text-slate-500 uppercase tracking-widest font-semibold mt-0.5">Network Monitoring Center</p>
             </div>
@@ -230,7 +230,7 @@ export default function App() {
             {/* Database status banner */}
             <div className="flex items-center space-x-1.5 bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-lg select-none">
               <Database className="size-3.5 text-emerald-400" />
-              <span className="text-[11px] font-medium text-slate-300">NetPulse DB Dual Sync</span>
+              <span className="text-[11px] font-medium text-slate-300">MProded DB Dual Sync</span>
             </div>
 
             {/* Dynamic Clock read-out */}
@@ -297,7 +297,7 @@ export default function App() {
                       Network Telemetry Dashboard
                     </h1>
                     <p className="text-xs text-slate-400 mt-1 max-w-xl">
-                      NetPulse measures millisecond delays, outages, and bandwidth drop ratios across core switches, routers, MikroTiks, and fiber link bridges in real-time.
+                      MProded measures millisecond delays, outages, and bandwidth drop ratios across core switches, routers, MikroTiks, and fiber link bridges in real-time.
                     </p>
                   </div>
                   <div className="flex items-center gap-3">

@@ -201,7 +201,7 @@ async function startServer() {
       const devices = await dbService.getDevices();
       if (devices.length === 0) return;
 
-      console.log(`📡 NetPulse background daemon: polling ${devices.length} network targets...`);
+      console.log(`📡 MProded background daemon: polling ${devices.length} network targets...`);
       
       for (const dev of devices) {
         let latency = 0;
@@ -266,7 +266,7 @@ async function startServer() {
   }
 
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`⚡ MPRODED NetPulse Server running at http://0.0.0.0:${PORT}`);
+    console.log(`⚡ MProded Server running at http://0.0.0.0:${PORT}`);
     console.log(`⏱️ Background network ping simulation active on ${MONITOR_INTERVAL_MS}ms interval loop.`);
   });
 }

@@ -54,7 +54,7 @@ const SEED_DEVICES: Device[] = [
   {
     id: 'dev-4',
     name: 'VPC Router VPS Cloud',
-    ip_address: 'router.mproded-netpulse.net',
+    ip_address: 'router.mproded.net',
     type: 'router',
     description: 'WireGuard/VPN gateway on Google Cloud Platform.',
     status: 'online',
